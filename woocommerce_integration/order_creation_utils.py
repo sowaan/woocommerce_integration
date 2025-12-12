@@ -93,6 +93,7 @@ def create_address(raw_data: dict, customer: dict, address_type: str):
     address.append("links", {"link_doctype": "Customer", "link_name": customer.name})
     address.flags.ignore_mandatory = True
     address.save()
+    frappe.db.commit()
 
 
 def create_contact(data: dict, customer: str):
@@ -127,6 +128,7 @@ def create_contact(data: dict, customer: str):
     contact.append("links", {"link_doctype": "Customer", "link_name": customer.name})
     contact.flags.ignore_mandatory = True
     contact.save()
+    frappe.db.commit()
 
 
 def create_order(order: dict, woocommerce_setup: dict, customer: str):
@@ -148,6 +150,7 @@ def create_order(order: dict, woocommerce_setup: dict, customer: str):
     sales_order.flags.ignore_mandatory = True
     sales_order.insert()
     sales_order.submit()
+    frappe.db.commit()
 
 
 def add_items_to_sales_order(order: dict, sales_order: dict, setup: dict):

@@ -8,12 +8,15 @@ class WooCommerceConnector:
         self.url = self.settings.url
         self.consumer_key = self.settings.consumer_key
         self.consumer_secret = self.settings.get_password("consumer_secret")
+        # Ensure verify_ssl is a boolean (it may be stored as 0/1 in settings)
+        verify_ssl_flag = bool(cint(self.settings.verify_ssl))
+
         self.woocommerce = WCAPI(
             url=self.url,
             consumer_key=self.consumer_key,
             consumer_secret=self.consumer_secret,
             wp_api=True,
-            verify_ssl=self.settings.verify_ssl,
+            verify_ssl=verify_ssl_flag,
             version="wc/v3",
             timeout=1000,
         )
